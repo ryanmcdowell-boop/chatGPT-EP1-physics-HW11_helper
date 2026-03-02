@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physics HW 11 - Guided Solutions</title>
+  <meta name="description" content="Nested guided solutions for 8 physics homework problems with step-by-step reveals." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2f;
+      --panel-2: #18223d;
+      --panel-3: #0f1730;
+      --border: #2b3a63;
+      --text: #e8eefc;
+      --muted: #aeb9d8;
+      --accent: #7dd3fc;
+      --accent-2: #93c5fd;
+      --success-bg: rgba(34, 197, 94, 0.12);
+      --success-border: rgba(34, 197, 94, 0.45);
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(125, 211, 252, 0.10), transparent 28%),
+        linear-gradient(180deg, #0b1020 0%, #080d1a 100%);
+      min-height: 100vh;
+    }
+
+    .shell {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 80px;
+    }
+
+    .hero {
+      padding: 28px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(147, 197, 253, 0.18);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(24, 34, 61, 0.94), rgba(11, 16, 32, 0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(125, 211, 252, 0.10);
+      border: 1px solid rgba(125, 211, 252, 0.20);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 75ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .legend-card {
+      padding: 14px 16px;
+      background: rgba(15, 23, 48, 0.88);
+      border: 1px solid rgba(147, 197, 253, 0.14);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .legend-card strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .problem-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    details {
+      border-radius: var(--radius-lg);
+    }
+
+    .problem {
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(18, 26, 47, 0.96), rgba(10, 15, 29, 0.95));
+      border: 1px solid rgba(147, 197, 253, 0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .problem > summary,
+    .part > summary,
+    .step > summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .problem > summary::-webkit-details-marker,
+    .part > summary::-webkit-details-marker,
+    .step > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .problem > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 22px;
+      background: linear-gradient(180deg, rgba(25, 36, 66, 0.98), rgba(18, 26, 47, 0.98));
+    }
+
+    .summary-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .summary-kicker {
+      color: var(--accent);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .summary-title {
+      font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .summary-icon {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(125, 211, 252, 0.08);
+      border: 1px solid rgba(125, 211, 252, 0.16);
+      color: var(--accent);
+      transition: transform 180ms ease;
+      font-size: 1rem;
+    }
+
+    details[open] > summary .summary-icon {
+      transform: rotate(90deg);
+    }
+
+    .problem-body {
+      padding: 0 22px 22px;
+    }
+
+    .card {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(10, 15, 29, 0.7);
+      border: 1px solid rgba(147, 197, 253, 0.12);
+    }
+
+    .problem-statement {
+      color: var(--text);
+      line-height: 1.72;
+    }
+
+    .problem-statement p,
+    .figure-note p,
+    .step-body p {
+      margin: 0 0 12px;
+    }
+
+    .figure-note {
+      color: var(--muted);
+      line-height: 1.68;
+      background: rgba(125, 211, 252, 0.05);
+      border: 1px solid rgba(125, 211, 252, 0.12);
+    }
+
+    .part-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .part {
+      background: linear-gradient(180deg, rgba(24, 34, 61, 0.92), rgba(16, 24, 44, 0.92));
+      border: 1px solid rgba(147, 197, 253, 0.14);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .part > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+    }
+
+    .part-label {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.95rem;
+      min-width: 56px;
+    }
+
+    .part-text {
+      flex: 1 1 auto;
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .part-body {
+      padding: 0 18px 18px;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      background: rgba(9, 14, 27, 0.80);
+      border: 1px solid rgba(147, 197, 253, 0.10);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .step > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .step-title {
+      min-width: 0;
+    }
+
+    .step-body {
+      padding: 0 16px 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .step-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .math-block {
+      overflow-x: auto;
+      margin: 12px 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(125, 211, 252, 0.04);
+      border: 1px solid rgba(125, 211, 252, 0.10);
+      color: var(--text);
+    }
+
+    .answer {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: #dcfce7;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .mjx-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 20px, 1000px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      .problem > summary,
+      .part > summary,
+      .step > summary {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      .problem-body {
+        padding: 0 16px 16px;
+      }
+
+      .part-body {
+        padding: 0 16px 16px;
+      }
+
+      .part > summary {
+        align-items: flex-start;
+      }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      },
+      chtml: {
+        scale: 1.0
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Physics HW 11</div>
+      <h1>Guided step-by-step walkthrough</h1>
+      <p>
+        Open a <strong>problem</strong>, then a <strong>part</strong>, then a <strong>step</strong>. Everything starts closed.
+        The algebra stays symbolic until the last step of each part, where the numerical substitution and final answer appear.
+      </p>
+      <div class="legend">
+        <div class="legend-card">
+          <strong>Problem level</strong>
+          Each big box holds one homework problem.
+        </div>
+        <div class="legend-card">
+          <strong>Part level</strong>
+          Each problem expands into its lettered parts.
+        </div>
+        <div class="legend-card">
+          <strong>Step level</strong>
+          Each part opens into small revealable steps.
+        </div>
+      </div>
+    </section>
+
+    <section id="problem-list" class="problem-list" aria-label="Physics homework problems"></section>
+
+  </main>
+
+  <script>
+    const problems = [{"id": 1, "title": "Vertical circle: work by gravity and potential energy", "statement": "A ball with mass \\(m = 0.283\\,\\text{kg}\\) is attached to the end of a thin rod of length \\(L = 0.302\\,\\text{m}\\). The rod starts horizontal, the ball swings in a vertical circle, and it just reaches the top with zero speed there. Find the work done by gravity from the initial point to the lowest, highest, and right-level points. Then find the gravitational potential energy at those same points if \\(U=0\\) at the initial point.", "figure_note": "From the figure: take the initial point as \\(y=0\\). Then the lowest point is at \\(y=-L\\), the highest point is at \\(y=+L\\), and the point on the right is again at \\(y=0\\).", "parts": [{"label": "(a)", "question": "Work done by gravity from the initial point to the lowest point", "steps": [["Step 1", "<p>For gravity, the work depends only on the change in height:</p><div class='math-block'>\\[W_g = mg\\,(y_i - y_f)\\]</div>"], ["Step 2", "<p>Here \\(y_i = 0\\) and \\(y_f = -L\\), so</p><div class='math-block'>\\[W_g = mg\\bigl(0 - (-L)\\bigr) = mgL\\]</div>"], ["Step 3", "<div class='math-block'>\\[W_g = (0.283)(9.81)(0.302) = 0.838\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.838\\,\\text{J}}\\)</div>"]]}, {"label": "(b)", "question": "Work done by gravity from the initial point to the highest point", "steps": [["Step 1", "<div class='math-block'>\\[W_g = mg\\,(y_i - y_f)\\]</div>"], ["Step 2", "<p>Now \\(y_i = 0\\) and \\(y_f = +L\\), so</p><div class='math-block'>\\[W_g = mg(0 - L) = -mgL\\]</div>"], ["Step 3", "<div class='math-block'>\\[W_g = -(0.283)(9.81)(0.302) = -0.838\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{-0.838\\,\\text{J}}\\)</div>"]]}, {"label": "(c)", "question": "Work done by gravity from the initial point to the point on the right at the same level", "steps": [["Step 1", "<p>Gravity does work only when the object's height changes:</p><div class='math-block'>\\[W_g = mg\\,(y_i - y_f)\\]</div>"], ["Step 2", "<p>The point on the right is at the same height as the initial point, so \\(y_i = y_f\\).</p><div class='math-block'>\\[W_g = mg\\,(y_i - y_i) = 0\\]</div>"], ["Step 3", "<div class='answer'>Answer: \\(\\boxed{0\\,\\text{J}}\\)</div>"]]}, {"label": "(d)", "question": "Gravitational potential energy at the lowest point, with \\(U=0\\) at the initial point", "steps": [["Step 1", "<p>Use the relation between potential energy and the work done by gravity:</p><div class='math-block'>\\[\\Delta U = -W_g\\]</div>"], ["Step 2", "<p>From part (a), the work done by gravity from the initial point to the lowest point is</p><div class='math-block'>\\[W_g = +mgL\\]</div><p>Because the initial potential energy is zero,</p><div class='math-block'>\\[U_f = U_i - W_g = 0 - mgL = -mgL\\]</div>"], ["Step 3", "<div class='math-block'>\\[U_f = -(0.283)(9.81)(0.302) = -0.838\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{-0.838\\,\\text{J}}\\)</div>"]]}, {"label": "(e)", "question": "Gravitational potential energy at the highest point", "steps": [["Step 1", "<div class='math-block'>\\[U = mgy\\]</div>"], ["Step 2", "<p>At the highest point, \\(y=+L\\), so</p><div class='math-block'>\\[U = mgL\\]</div>"], ["Step 3", "<div class='math-block'>\\[U = (0.283)(9.81)(0.302) = 0.838\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.838\\,\\text{J}}\\)</div>"]]}, {"label": "(f)", "question": "Gravitational potential energy at the point on the right at the same level as the start", "steps": [["Step 1", "<div class='math-block'>\\[U = mgy\\]</div>"], ["Step 2", "<p>This point is back at \\(y=0\\), so</p><div class='math-block'>\\[U = mg(0)=0\\]</div>"], ["Step 3", "<div class='answer'>Answer: \\(\\boxed{0\\,\\text{J}}\\)</div>"]]}]}, {"id": 2, "title": "Loop-the-loop: work by gravity and potential energy", "statement": "A block with mass \\(m = 0.039\\,\\text{kg}\\) slides on a frictionless loop-the-loop of radius \\(R = 0.17\\,\\text{m}\\). It starts from rest at point \\(P\\), at height \\(h = 6R\\) above the bottom. Find the work done by gravity from \\(P\\) to \\(Q\\) and from \\(P\\) to the top of the loop. Then find the gravitational potential energy at \\(P\\), \\(Q\\), and the top if \\(U=0\\) at the bottom.", "figure_note": "From the figure: measure height from the bottom of the loop. Then \\(y_P = 6R\\), \\(y_Q = R\\), and the top of the loop is at \\(y = 2R\\).", "parts": [{"label": "(a)", "question": "Work done by gravity from \\(P\\) to \\(Q\\)", "steps": [["Step 1", "<div class='math-block'>\\[W_g = mg\\,(y_i - y_f)\\]</div>"], ["Step 2", "<p>Here \\(y_i = 6R\\) and \\(y_f = R\\), so</p><div class='math-block'>\\[W_g = mg(6R - R) = 5mgR\\]</div>"], ["Step 3", "<div class='math-block'>\\[W_g = 5(0.039)(9.81)(0.17) = 0.325\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.325\\,\\text{J}}\\)</div>"]]}, {"label": "(b)", "question": "Work done by gravity from \\(P\\) to the top of the loop", "steps": [["Step 1", "<div class='math-block'>\\[W_g = mg\\,(y_i - y_f)\\]</div>"], ["Step 2", "<p>Now \\(y_i = 6R\\) and \\(y_f = 2R\\), so</p><div class='math-block'>\\[W_g = mg(6R - 2R) = 4mgR\\]</div>"], ["Step 3", "<div class='math-block'>\\[W_g = 4(0.039)(9.81)(0.17) = 0.260\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.260\\,\\text{J}}\\)</div>"]]}, {"label": "(c)", "question": "Potential energy at point \\(P\\), with \\(U=0\\) at the bottom", "steps": [["Step 1", "<div class='math-block'>\\[U = mgy\\]</div>"], ["Step 2", "<p>At \\(P\\), \\(y=6R\\), so</p><div class='math-block'>\\[U_P = mg(6R) = 6mgR\\]</div>"], ["Step 3", "<div class='math-block'>\\[U_P = 6(0.039)(9.81)(0.17) = 0.390\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.390\\,\\text{J}}\\)</div>"]]}, {"label": "(d)", "question": "Potential energy at point \\(Q\\)", "steps": [["Step 1", "<div class='math-block'>\\[U = mgy\\]</div>"], ["Step 2", "<p>At \\(Q\\), \\(y=R\\), so</p><div class='math-block'>\\[U_Q = mgR\\]</div>"], ["Step 3", "<div class='math-block'>\\[U_Q = (0.039)(9.81)(0.17) = 0.0651\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.0651\\,\\text{J}}\\)</div>"]]}, {"label": "(e)", "question": "Potential energy at the top of the loop", "steps": [["Step 1", "<div class='math-block'>\\[U = mgy\\]</div>"], ["Step 2", "<p>At the top, \\(y=2R\\), so</p><div class='math-block'>\\[U_{\\text{top}} = 2mgR\\]</div>"], ["Step 3", "<div class='math-block'>\\[U_{\\text{top}} = 2(0.039)(9.81)(0.17) = 0.130\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{0.130\\,\\text{J}}\\)</div>"]]}]}, {"id": 3, "title": "Pendulum-like rod: work and potential energy change", "statement": "A ball with mass \\(m = 9.40\\,\\text{kg}\\) is attached to a light rod of length \\(L = 1.60\\,\\text{m}\\). The rod is pulled aside to \\(\\theta_0 = 7.30^\\circ\\) from the vertical and released from rest. As the ball moves to its lowest point, find the work done by gravity, the change in gravitational potential energy, and the gravitational potential energy at release if \\(U=0\\) at the lowest point.", "figure_note": "The release point is above the lowest point by the vertical amount \\(\\Delta y = L - L\\cos\\theta_0 = L(1-\\cos\\theta_0)\\).", "parts": [{"label": "(a)", "question": "Work done by gravity as the ball moves to the lowest point", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta y = L(1-\\cos\\theta_0)\\]</div>"], ["Step 2", "<p>Gravity does positive work when the ball moves downward:</p><div class='math-block'>\\[W_g = mg\\,\\Delta y = mgL(1-\\cos\\theta_0)\\]</div>"], ["Step 3", "<div class='math-block'>\\[W_g = (9.40)(9.81)(1.60)\\bigl(1-\\cos 7.30^\\circ\\bigr) = 1.20\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{1.20\\,\\text{J}}\\)</div>"]]}, {"label": "(b)", "question": "Change in gravitational potential energy of the ball-Earth system", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta U = -W_g\\]</div>"], ["Step 2", "<div class='math-block'>\\[\\Delta U = -mgL(1-\\cos\\theta_0)\\]</div>"], ["Step 3", "<div class='math-block'>\\[\\Delta U = -(9.40)(9.81)(1.60)\\bigl(1-\\cos 7.30^\\circ\\bigr) = -1.20\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{-1.20\\,\\text{J}}\\)</div>"]]}, {"label": "(c)", "question": "Potential energy at release if \\(U=0\\) at the lowest point", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta y = L(1-\\cos\\theta_0)\\]</div>"], ["Step 2", "<p>Because the lowest point is the zero level,</p><div class='math-block'>\\[U = mg\\Delta y = mgL(1-\\cos\\theta_0)\\]</div>"], ["Step 3", "<div class='math-block'>\\[U = (9.40)(9.81)(1.60)\\bigl(1-\\cos 7.30^\\circ\\bigr) = 1.20\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{1.20\\,\\text{J}}\\)</div>"]]}]}, {"id": 4, "title": "Projectile from a cliff: work and potential energy", "statement": "A \\(1.60\\,\\text{kg}\\) snowball is launched from a cliff \\(8.80\\,\\text{m}\\) high with speed \\(12.9\\,\\text{m/s}\\) at \\(33.0^\\circ\\) above the horizontal. Find the work done by gravity during the flight, the change in gravitational potential energy, and the potential energy at the ground if \\(U=0\\) at the cliff top.", "figure_note": "For these parts, only the vertical drop matters. The snowball falls a total height of \\(8.80\\,\\text{m}\\).", "parts": [{"label": "(a)", "question": "Work done by gravity during the flight", "steps": [["Step 1", "<div class='math-block'>\\[W_g = mg(y_i-y_f)\\]</div>"], ["Step 2", "<p>The snowball ends \\(8.80\\,\\text{m}\\) below the launch point, so</p><div class='math-block'>\\[W_g = mg(8.80)\\]</div>"], ["Step 3", "<div class='math-block'>\\[W_g = (1.60)(9.81)(8.80) = 138\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{138\\,\\text{J}}\\)</div>"]]}, {"label": "(b)", "question": "Change in gravitational potential energy during the flight", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta U = -W_g\\]</div>"], ["Step 2", "<div class='math-block'>\\[\\Delta U = -mg(8.80)\\]</div>"], ["Step 3", "<div class='math-block'>\\[\\Delta U = -(1.60)(9.81)(8.80) = -138\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{-138\\,\\text{J}}\\)</div>"]]}, {"label": "(c)", "question": "Potential energy at the ground if \\(U=0\\) at cliff height", "steps": [["Step 1", "<p>If the cliff top is the zero level, then at a point \\(y\\) below it:</p><div class='math-block'>\\[U = mgy\\]</div>"], ["Step 2", "<p>The ground is at \\(y=-8.80\\,\\text{m}\\), so</p><div class='math-block'>\\[U = -mg(8.80)\\]</div>"], ["Step 3", "<div class='math-block'>\\[U = -(1.60)(9.81)(8.80) = -138\\,\\text{J}\\]</div><div class='answer'>Answer: \\(\\boxed{-138\\,\\text{J}}\\)</div>"]]}]}, {"id": 5, "title": "Roller coaster: energy conservation", "statement": "A frictionless roller coaster car of mass \\(m = 821\\,\\text{kg}\\) passes the top of the first hill with speed \\(v_0 = 18.0\\,\\text{m/s}\\) at height \\(h = 40.0\\,\\text{m}\\). Find the speed at points \\(A\\), \\(B\\), and \\(C\\), and then find how high the car rises on the last hill. Use \\(g = 9.81\\,\\text{m/s}^2\\).", "figure_note": "From the figure: the first hill and point \\(A\\) are both at height \\(h\\), point \\(B\\) is at height \\(h/2\\), and point \\(C\\) is at height \\(0\\).", "parts": [{"label": "(a)", "question": "Speed at point \\(A\\)", "steps": [["Step 1", "<div class='math-block'>\\[\\frac12 mv_0^2 + mgh = \\frac12 mv_A^2 + mgh\\]</div>"], ["Step 2", "<p>Because the car is at the same height at the start and at \\(A\\),</p><div class='math-block'>\\[\\frac12 mv_0^2 = \\frac12 mv_A^2 \\quad\\Rightarrow\\quad v_A=v_0\\]</div>"], ["Step 3", "<div class='math-block'>\\[v_A = 18.0\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{18.0\\,\\text{m/s}}\\)</div>"]]}, {"label": "(b)", "question": "Speed at point \\(B\\)", "steps": [["Step 1", "<div class='math-block'>\\[\\frac12 mv_0^2 + mgh = \\frac12 mv_B^2 + mg\\frac{h}{2}\\]</div>"], ["Step 2", "<div class='math-block'>\\[\\frac12 mv_B^2 = \\frac12 mv_0^2 + mg\\frac{h}{2}\\]</div><div class='math-block'>\\[v_B^2 = v_0^2 + gh\\]</div><div class='math-block'>\\[v_B = \\sqrt{v_0^2 + gh}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v_B = \\sqrt{(18.0)^2 + (9.81)(40.0)} = 26.8\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{26.8\\,\\text{m/s}}\\)</div>"]]}, {"label": "(c)", "question": "Speed at point \\(C\\)", "steps": [["Step 1", "<div class='math-block'>\\[\\frac12 mv_0^2 + mgh = \\frac12 mv_C^2 + 0\\]</div>"], ["Step 2", "<div class='math-block'>\\[\\frac12 mv_C^2 = \\frac12 mv_0^2 + mgh\\]</div><div class='math-block'>\\[v_C^2 = v_0^2 + 2gh\\]</div><div class='math-block'>\\[v_C = \\sqrt{v_0^2 + 2gh}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v_C = \\sqrt{(18.0)^2 + 2(9.81)(40.0)} = 33.3\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{33.3\\,\\text{m/s}}\\)</div>"]]}, {"label": "(d)", "question": "Maximum height reached on the last hill", "steps": [["Step 1", "<div class='math-block'>\\[\\frac12 mv_0^2 + mgh = 0 + mgy_{\\max}\\]</div>"], ["Step 2", "<div class='math-block'>\\[gy_{\\max} = \\frac{v_0^2}{2} + gh\\]</div><div class='math-block'>\\[y_{\\max} = h + \\frac{v_0^2}{2g}\\]</div>"], ["Step 3", "<div class='math-block'>\\[y_{\\max} = 40.0 + \\frac{(18.0)^2}{2(9.81)} = 56.5\\,\\text{m}\\]</div><div class='answer'>Answer: \\(\\boxed{56.5\\,\\text{m}}\\)</div>"]]}]}, {"id": 6, "title": "Dropping a book to a friend", "statement": "You drop a \\(2.00\\,\\text{kg}\\) book to a friend who stands on the ground \\(D = 13.0\\,\\text{m}\\) below. Your friend's hands are at height \\(d = 1.30\\,\\text{m}\\) above the ground. Find the speed when the book reaches your friend's hands, then answer how that changes if the mass doubles or if the book is thrown downward at \\(3.40\\,\\text{m/s}\\) instead of dropped.", "figure_note": "The book does not fall the full distance \\(D\\) to the ground. It falls to the hands, so the vertical drop is \\(D-d\\).", "parts": [{"label": "(a)", "question": "Speed of the dropped book when it reaches the friend's hands", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta y = D-d\\]</div>"], ["Step 2", "<div class='math-block'>\\[v^2 = v_0^2 + 2g\\Delta y\\]</div><p>Because the book is dropped, \\(v_0=0\\), so</p><div class='math-block'>\\[v = \\sqrt{2g(D-d)}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v = \\sqrt{2(9.81)(13.0-1.30)} = 15.2\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{15.2\\,\\text{m/s}}\\)</div>"]]}, {"label": "(b)", "question": "Speed if the book had twice the mass", "steps": [["Step 1", "<div class='math-block'>\\[v = \\sqrt{2g(D-d)}\\]</div>"], ["Step 2", "<p>Mass does not appear anywhere in the speed formula, so doubling the mass does not change the result.</p>"], ["Step 3", "<div class='answer'>Answer: \\(\\boxed{15.2\\,\\text{m/s}}\\)</div>"]]}, {"label": "(c)", "question": "Speed if the book is thrown downward with initial speed \\(3.40\\,\\text{m/s}\\)", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta y = D-d\\]</div>"], ["Step 2", "<div class='math-block'>\\[v^2 = v_0^2 + 2g(D-d)\\]</div><div class='math-block'>\\[v = \\sqrt{v_0^2 + 2g(D-d)}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v = \\sqrt{(3.40)^2 + 2(9.81)(13.0-1.30)} = 15.5\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{15.5\\,\\text{m/s}}\\)</div>"]]}]}, {"id": 7, "title": "Ice flake in a hemispherical bowl", "statement": "An ice flake of mass \\(1.6\\,\\text{g}\\) is released from the edge of a frictionless hemispherical bowl of radius \\(r = 16\\,\\text{cm}\\). Find its speed at the bottom, then answer how that changes if the mass is tripled or if the flake is given an initial downward speed of \\(1.2\\,\\text{m/s}\\) along the bowl.", "figure_note": "From the geometry of the hemisphere, the edge is one radius above the bottom, so the vertical drop is simply \\(r\\).", "parts": [{"label": "(a)", "question": "Speed at the bottom when released from rest", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta y = r\\]</div>"], ["Step 2", "<div class='math-block'>\\[v^2 = 2gr\\]</div><div class='math-block'>\\[v = \\sqrt{2gr}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v = \\sqrt{2(9.81)(0.16)} = 1.77\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{1.77\\,\\text{m/s}}\\)</div>"]]}, {"label": "(b)", "question": "Speed at the bottom if the flake had three times the mass", "steps": [["Step 1", "<div class='math-block'>\\[v = \\sqrt{2gr}\\]</div>"], ["Step 2", "<p>Mass cancels out of the energy equation, so the speed is unchanged.</p>"], ["Step 3", "<div class='answer'>Answer: \\(\\boxed{1.77\\,\\text{m/s}}\\)</div>"]]}, {"label": "(c)", "question": "Speed at the bottom if the flake starts with \\(1.2\\,\\text{m/s}\\) downward along the bowl", "steps": [["Step 1", "<div class='math-block'>\\[\\Delta y = r\\]</div>"], ["Step 2", "<div class='math-block'>\\[v^2 = v_0^2 + 2gr\\]</div><div class='math-block'>\\[v = \\sqrt{v_0^2 + 2gr}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v = \\sqrt{(1.2)^2 + 2(9.81)(0.16)} = 2.14\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{2.14\\,\\text{m/s}}\\)</div>"]]}]}, {"id": 8, "title": "Projectile from a cliff: final speed by energy", "statement": "A \\(2.20\\,\\text{kg}\\) snowball is fired from a \\(12.5\\,\\text{m}\\) cliff with initial speed \\(17.9\\,\\text{m/s}\\) at \\(48.0^\\circ\\) above the horizontal. Using energy, find the speed at the ground. Then determine whether that speed changes if the launch angle is changed to \\(48.0^\\circ\\) below the horizontal or if the mass is changed to \\(5.70\\,\\text{kg}\\).", "figure_note": "With energy, only the initial speed magnitude and the vertical drop matter. The launch angle and mass do not affect the final speed here.", "parts": [{"label": "(a)", "question": "Speed at the ground", "steps": [["Step 1", "<div class='math-block'>\\[\\frac12 mv_0^2 + mgh = \\frac12 mv^2\\]</div>"], ["Step 2", "<div class='math-block'>\\[v^2 = v_0^2 + 2gh\\]</div><div class='math-block'>\\[v = \\sqrt{v_0^2 + 2gh}\\]</div>"], ["Step 3", "<div class='math-block'>\\[v = \\sqrt{(17.9)^2 + 2(9.81)(12.5)} = 23.8\\,\\text{m/s}\\]</div><div class='answer'>Answer: \\(\\boxed{23.8\\,\\text{m/s}}\\)</div>"]]}, {"label": "(b)", "question": "Speed at the ground if the launch angle is \\(48.0^\\circ\\) below the horizontal", "steps": [["Step 1", "<div class='math-block'>\\[v = \\sqrt{v_0^2 + 2gh}\\]</div>"], ["Step 2", "<p>The angle never appears in the energy equation, so changing the launch angle does not change the final speed as long as the initial speed magnitude is still \\(17.9\\,\\text{m/s}\\).</p>"], ["Step 3", "<div class='answer'>Answer: \\(\\boxed{23.8\\,\\text{m/s}}\\)</div>"]]}, {"label": "(c)", "question": "Speed at the ground if the mass is changed to \\(5.70\\,\\text{kg}\\)", "steps": [["Step 1", "<div class='math-block'>\\[v = \\sqrt{v_0^2 + 2gh}\\]</div>"], ["Step 2", "<p>Mass cancels from the conservation of energy equation, so changing the mass does not change the final speed.</p>"], ["Step 3", "<div class='answer'>Answer: \\(\\boxed{23.8\\,\\text{m/s}}\\)</div>"]]}]}];
+
+    const list = document.getElementById('problem-list');
+
+    function createStep(step) {
+      const details = document.createElement('details');
+      details.className = 'step';
+
+      details.innerHTML = `
+        <summary>
+          <span class="step-title">${step.title}</span>
+          <span class="summary-icon" aria-hidden="true">▸</span>
+        </summary>
+        <div class="step-body">${step.body}</div>
+      `;
+      return details;
+    }
+
+    function createPart(part) {
+      const details = document.createElement('details');
+      details.className = 'part';
+
+      const stepMarkup = part.steps.map(step => createStep(step).outerHTML).join('');
+
+      details.innerHTML = `
+        <summary>
+          <span class="part-label">${part.label}</span>
+          <span class="part-text">${part.question}</span>
+          <span class="summary-icon" aria-hidden="true">▸</span>
+        </summary>
+        <div class="part-body">
+          <div class="step-list">${stepMarkup}</div>
+        </div>
+      `;
+      return details;
+    }
+
+    function createProblem(problem) {
+      const details = document.createElement('details');
+      details.className = 'problem';
+
+      const partsMarkup = problem.parts.map(part => createPart(part).outerHTML).join('');
+
+      details.innerHTML = `
+        <summary>
+          <div class="summary-main">
+            <span class="summary-kicker">Problem ${problem.id}</span>
+            <span class="summary-title">${problem.title}</span>
+          </div>
+          <span class="summary-icon" aria-hidden="true">▸</span>
+        </summary>
+        <div class="problem-body">
+          <div class="card problem-statement">
+            <p>${problem.statement}</p>
+          </div>
+          <div class="card figure-note">
+            <p><strong>Figure read in words:</strong> ${problem.figure_note}</p>
+          </div>
+          <div class="part-list">${partsMarkup}</div>
+        </div>
+      `;
+      return details;
+    }
+
+    const normalized = problems.map(problem => ({
+      ...problem,
+      parts: problem.parts.map(part => ({
+        ...part,
+        steps: part.steps.map(([title, body]) => ({ title, body }))
+      }))
+    }));
+
+    normalized.forEach(problem => list.appendChild(createProblem(problem)));
+
+    window.addEventListener('load', () => {
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    });
+  </script>
+</body>
+</html>
